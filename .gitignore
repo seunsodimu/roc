@@ -126,3 +126,8 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+#------------------------- public/certs
+#-------------------------
+public/certs/*
+utmmaker/*
+
