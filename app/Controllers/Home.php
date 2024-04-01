@@ -20,14 +20,8 @@ class Home extends BaseController
 
     public function index()
     {
-        // $homeData = $this->getHomeData();
-
-        // if (!$homeData) {
             $pagesModel = new PagesModel();
             $homeData = $pagesModel->retrievePageData('homepage');
-        //     $this->setHomeData($homeData);
-        // }
-        // $this->load->view('home', ['data' => $homeData]);
         $page_data = json_decode($homeData['data'], true);
         $data = [
             'page_title' => $this->findSection($homeData['data'], 'page_title'),
@@ -44,7 +38,6 @@ class Home extends BaseController
             'cta4' => $this->findSection($homeData['data'], 'cta4'),
             'active' => 'home'
         ];
-        // var_dump($data['testimonials']['reviews']); exit;
         $page = env('CI_ENVIRONMENT') == 'development' ? 'home' : 'welcome_message';
         return view($page, ['data' => $data]);
     }

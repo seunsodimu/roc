@@ -59,7 +59,6 @@ class Blog extends BaseController
             'blog_data' => $this->data,
             'active' => 'blog'
         ];
-        //  var_dump($data['blog_data']['pager']); exit;
         return view('blog', ['data' => $data]);
     }
     
@@ -146,7 +145,6 @@ class Blog extends BaseController
             'post_data' => $this->data,
             'active' => 'blog'
         ];
-        // var_dump($data['page_title']); exit;
         return view('post', ['data' => $data]);
     }
     public function PagenotFound(){

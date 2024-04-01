@@ -32,7 +32,6 @@ class PaymentController extends Controller {
     public function index() 
     {
             $this->data['page_title']['title'] = 'Payment Success';
-            //$this->data['order_data'] = $data;
             $success_message = "<span class='text-color-primary me-1'><i class='fas fa-check'></i> Rad job, ".session()->get('firstname')."! Your payment cruised through successfully. Keep an eye on your inbox; we'll be sending you the lowdown on how to snag your rentals shortly</span>";
             session()->setFlashdata('msgtype', 'success');
             session()->setFlashdata('msg', $success_message);
