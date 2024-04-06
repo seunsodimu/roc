@@ -31,10 +31,11 @@ class PaymentsModel extends Model {
         return $db->insertID();
     }
 
-    public function getTransactionById($id) {
+    public function getTransactionById($id, $userId) {
         $db = \Config\Database::connect();
         $builder = $db->table('transactions');
         $builder->where('id', $id);
+        $builder->where('user_id', $userId);
         return $builder->get()->getRowArray();
     }
 
@@ -52,26 +53,29 @@ class PaymentsModel extends Model {
         return $builder->get()->getResultArray();
     }
 
-    public function getSavedCartById($id) {
+    public function getSavedCartById($id, $user_id) {
         $db = \Config\Database::connect();
         $builder = $db->table('saved_cart');
         $builder->where('id', $id);
+        $builder->where('user_id', $user_id);
         return $builder->get()->getRowArray();
     }
 
     
-    public function deleteSavedCart($id) {
+    public function deleteSavedCart($id, $user_id) {
         $db = \Config\Database::connect();
         $builder = $db->table('saved_cart');
         $builder->where('id', $id);
+        $builder->where('user_id', $user_id);
         $builder->delete();
         return $db->affectedRows();
     }
 
-    public function updateSavedCart($id, $data) {
+    public function updateSavedCart($id, $user_id, $data) {
         $db = \Config\Database::connect();
         $builder = $db->table('saved_cart');
         $builder->where('id', $id);
+        $builder->where('user_id', $user_id);
         $builder->update($data);
         return $db->affectedRows();
     }

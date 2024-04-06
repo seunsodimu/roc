@@ -324,7 +324,8 @@ class UserController extends Controller
     public function viewRental($id)
     {
         $myrental = new RentalsModel();
-        $this->data['rental'] = $myrental->getRentalById($id);
+        $user_id = session()->get('user_id');
+        $this->data['rental'] = $myrental->getRentalById($id, $user_id);
         $this->data['page_title']['title'] = $this->data['rental']->rental_detail. 'Rental on ' . $this->data['rental']->created_at;
         $this->data['active'] = 'my-rentals';
         return view('rental-detail', ['data' => $this->data]);
@@ -342,9 +343,10 @@ class UserController extends Controller
     public function viewTransaction($id)
     {
         $order = new OrderModel();
+        $user_id = session()->get('user_id');
         $this->data['page_title']['title'] = 'View Transactions';
         $this->data['active'] = 'my-transactions';
-        $this->data['transaction'] = $order->getOrderById($id);
+        $this->data['transaction'] = $order->getOrderById($id, $user_id);
         return view('member-view-transactions', ['data' => $this->data]);
     }
 

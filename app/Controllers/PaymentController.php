@@ -157,8 +157,9 @@ class PaymentController extends Controller {
     public function getTransaction()
     {
         $txn_id = $this->request->getVar('txn_id');
+        $user_id = session()->get('user_id');
         $payment = new PaymentsModel();
-        $txn = $payment->getTransactionById($txn_id);
+        $txn = $payment->getTransactionById($txn_id, $user_id);
         return json_encode($txn);
     }
 

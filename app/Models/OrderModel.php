@@ -15,10 +15,11 @@ class OrderModel extends Model {
         return $builder->get()->getResultArray();
     }
 
-    public function getOrderById($id) {
+    public function getOrderById($id, $userId) {
         $db = \Config\Database::connect();
         $builder = $db->table('orders');
         $builder->where('orders.id', $id);
+        $builder->where('orders.user_id', $userId);
         $builder->select('orders.*, users.first_name, users.last_name');
         $builder->join('users', 'users.id = orders.user_id', 'left');
         return $builder->get()->getRowArray();

@@ -96,14 +96,11 @@ endif;
 									</div>
 									<?php endif; ?>
                                     <div class="addtocart-btn-wrapper">
-											<a href="javascript:void(0)" data-productid="<?= $product['product_id'] ?>" class="text-decoration-none addtocart-btn" title="Add to Cart">
-												<i class="icons icon-bag"></i>
+											<a href="<?= base_url('product/'.$product['slug']) ?>" data-productid="<?= $product['product_id'] ?>" class="text-decoration-none" title="View">
+												<i class="fa fa-eye"></i>
 											</a>
 										</div>
-										<a href="javascript:void(0)" data-productid="<?= $product['product_id'] ?>" class="quick-view text-uppercase font-weight-semibold text-2">
-											QUICK VIEW
-										</a>
-										<a href="javascript:void(0)">
+										<a href="<?= base_url('product/'.$product['slug']) ?>">
 											<div class="product-thumb-info-image bg-light">
 												<img alt="<?= base_url($product['product_name']) ?>" class="img-fluid" src="<?= base_url($product['product_img']) ?>">
 											</div>

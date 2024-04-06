@@ -159,8 +159,9 @@ class CartController extends BaseController
     public function getSavedCart()
     {
         $id = $this->request->getVar('id');
+        $user_id = session()->get('user_id');
         $paymentsModel = new PaymentsModel();
-        $savedCart = $paymentsModel->getSavedCartById($id);
+        $savedCart = $paymentsModel->getSavedCartById($id, $user_id);
         return json_encode($savedCart);
     }
 
@@ -168,20 +169,22 @@ class CartController extends BaseController
     {
         $id = $this->request->getVar('cart_id');
         $paymentsModel = new PaymentsModel();
-        $paymentsModel->deleteSavedCart($id);
+        $user_id = session()->get('user_id');
+        $paymentsModel->deleteSavedCart($id, $user_id);
         return json_encode(['status' => 'success', 'msg' => 'Cart deleted successfully']);
     }
 
     public function updateSavedCart()
     {
         $id = $this->request->getVar('id');
+        $user_id = session()->get('user_id');
         $data = [
             'cart_total' => $this->request->getVar('cart_total'),
             'cart_count' => $this->request->getVar('cart_count'),
             'cart' => $this->request->getVar('cart')
         ];
         $paymentsModel = new PaymentsModel();
-        $paymentsModel->updateSavedCart($id, $data);
+        $paymentsModel->updateSavedCart($id, $user_id, $data);
         return json_encode(['status' => 'success', 'msg' => 'Cart updated successfully']);
     }
 
@@ -189,7 +192,8 @@ class CartController extends BaseController
     {
         $id = $this->request->getVar('id');
         $paymentsModel = new PaymentsModel();
-        $savedCart = $paymentsModel->getSavedCartById($id);
+        $user_id = session()->get('user_id');
+        $savedCart = $paymentsModel->getSavedCartById($id, $user_id);
         session()->set('cart', json_decode($savedCart['cart'], true));
         session()->set('cart_count', $savedCart['cart_count']);
         session()->set('cart_total', $savedCart['cart_total']);

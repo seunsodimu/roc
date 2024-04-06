@@ -447,6 +447,7 @@ var product_extra;
 				response = JSON.parse(response);
 				if(response.msgtype == "success") {
 					alert(response.msg);
+					location.reload();
 				} else {
 					console.log(response);
 					$('#listErrors').html('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'+response.msgtype+'</div>');
