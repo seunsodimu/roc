@@ -128,6 +128,7 @@ nb-configuration.xml
 
 #------------------------- public/certs
 #-------------------------
-public/certs/*
+public/certs/DigiCertGlobalRootCA.crt.pem
 utmmaker/*
+assets/*
 
