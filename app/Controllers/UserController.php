@@ -104,7 +104,6 @@ class UserController extends Controller
         ];
 
         session()->set($data);
-       //  var_dump(session()->get('isLoggedIn')); exit;
         return true;
     }
 

@@ -20,14 +20,8 @@ class Pages extends BaseController
 
     public function index()
     {
-        // $homeData = $this->getHomeData();
-
-        // if (!$homeData) {
             $pagesModel = new PagesModel();
             $homeData = $pagesModel->retrievePageData('homepage');
-        //     $this->setHomeData($homeData);
-        // }
-        // $this->load->view('home', ['data' => $homeData]);
         $page_data = json_decode($homeData['data'], true);
         $data = [
             'page_title' => $this->findSection($homeData['data'], 'page_title'),
@@ -89,7 +83,6 @@ class Pages extends BaseController
     {
         $pagesModel = new PagesModel();
         $pageData = $pagesModel->retrievePageData($pageName);
-        //$pageData = json_decode($pageData['data'], true);
         
         $data = [
             'page_title' => $this->findSection($pageData['data'], 'page_title'),
@@ -123,7 +116,6 @@ class Pages extends BaseController
                         $data['videos']['enabled'] = false;
                         break;
         }
-      //  var_dump($this->findSection($pageData['data'], 'page-body')); exit;
         return view('text-pages', ['data' => $data]);
     }
 

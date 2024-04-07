@@ -8,6 +8,7 @@ foreach ($data['meta_tags']['tags'] as $tag) {
 endif;
     }
 ?>
+<meta name="description" content="This is a test description">
 <?=$this->endSection()?>
 
 <?=$this->section("topscripts")?>
