@@ -248,7 +248,7 @@
 											<div class="actions">
 												<a class="btn btn-dark" href="<?= base_url('cart') ?>">View Cart</a>
 												<a class="btn btn-primary"
-													href="<?= base_url('cart-checkout') ?>">Checkout</a>
+													href="<?= base_url('payment') ?>">Checkout</a>
 											</div>
 										<?php else: ?>
 											<p class="text-center">There are no items in your cart</p>
