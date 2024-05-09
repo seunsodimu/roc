@@ -12,7 +12,9 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
+        "easypost/easypost-php": "^7.2",
         "kinde-oss/kinde-auth-php": "^1.2",
+        "phpclassic/php-shopify": "^1.2",
         "predis/predis": "^2.2",
         "sendgrid/sendgrid": "~7",
         "stripe/stripe-php": "^13.15"

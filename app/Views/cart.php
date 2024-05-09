@@ -156,7 +156,7 @@ endif;
 											</tr>
 										</tbody>
 									</table>
-									<a href="<?= base_url('payment') ?>" class="btn btn-dark btn-modern w-100 text-uppercase bg-color-hover-primary border-color-hover-primary border-radius-0 text-3 py-3">Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i></a>
+									<a href="<?= base_url('checkout') ?>" class="btn btn-dark btn-modern w-100 text-uppercase bg-color-hover-primary border-color-hover-primary border-radius-0 text-3 py-3">Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i></a>
 									<a href="javascript:void(0)" id="saveCart" class="btn btn-outline-dark btn-modern w-100 text-uppercase bg-color-hover-primary border-color-hover-primary border-radius-0 text-3 py-3 mt-3"><i class="fas fa-save me-2"></i> Save Cart</a>
 								</div>
 							</div>

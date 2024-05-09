@@ -79,4 +79,23 @@ class PaymentsModel extends Model {
         $builder->update($data);
         return $db->affectedRows();
     }
+
+    public function getTaxRate($zip, $state)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tax_rates');
+        $builder->where('zipcode', $zip);
+        $builder->where('state', $state);
+        return $builder->get()->getRowArray();
+    }
+
+    public function isTaxEnabled() {
+        $db = \Config\Database::connect();
+        $builder = $db->table('settings');
+        $builder->where('idsettings', 1);
+        $row = $builder->get()->getRowArray();
+        //check if tax is enabled from data column. data is in json format
+        $data = json_decode($row['data']);
+        return $data->enableTax;
+    }
 }

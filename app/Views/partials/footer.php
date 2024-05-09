@@ -13,7 +13,7 @@
 							<ul class="list list-unstyled">
 								<li class="pb-1 mb-2">
 									<span class="d-block font-weight-semibold line-height-1 text-color-grey text-3-5">ADDRESS</span> 
-									<span class="font-weight-light text-3-5 text-color-light">Clearwater, FL</span>
+									<span class="font-weight-light text-3-5 text-color-light">Clearwater, FL</span><br>
 									<a href="#" class="text-color-light custom-text-underline-1 font-weight-medium text-3-5">GET DIRECTIONS</a>
 								</li>
 								<li class="pb-1 mb-2">

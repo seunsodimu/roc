@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a89f4acb8ab0543758836aece97fce5",
+    "content-hash": "c8180f0b9d283108192ca2730fa81f22",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -80,6 +80,65 @@
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
             "time": "2024-03-29T04:23:09+00:00"
+        },
+        {
+            "name": "easypost/easypost-php",
+            "version": "7.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EasyPost/easypost-php.git",
+                "reference": "de9a10de17f8df017b215ad9cc9054be7ade57ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EasyPost/easypost-php/zipball/de9a10de17f8df017b215ad9cc9054be7ade57ff",
+                "reference": "de9a10de17f8df017b215ad9cc9054be7ade57ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.5",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "allejo/php-vcr-sanitizer": "^1.0.9",
+                "php-coveralls/php-coveralls": "^2.5",
+                "php-vcr/php-vcr": "^1.6",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9",
+                "roave/security-advisories": "dev-latest",
+                "rregeer/phpunit-coverage-check": "^0.3.1",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EasyPost\\": "lib/EasyPost/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "EasyPost Developers",
+                    "email": "oss@easypost.com",
+                    "homepage": "https://www.easypost.com"
+                }
+            ],
+            "description": "EasyPost Shipping API Client Library for PHP",
+            "homepage": "https://github.com/EasyPost/easypost-php",
+            "keywords": [
+                "api",
+                "easypost",
+                "shipping"
+            ],
+            "support": {
+                "issues": "https://github.com/EasyPost/easypost-php/issues",
+                "source": "https://github.com/EasyPost/easypost-php/tree/v7.2.0"
+            },
+            "time": "2024-04-10T19:55:49+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -588,6 +647,57 @@
                 }
             ],
             "time": "2022-10-10T10:11:09+00:00"
+        },
+        {
+            "name": "phpclassic/php-shopify",
+            "version": "v1.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpclassic/php-shopify.git",
+                "reference": "6259d8b18f85248ac367d25671498424479f262e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpclassic/php-shopify/zipball/6259d8b18f85248ac367d25671498424479f262e",
+                "reference": "6259d8b18f85248ac367d25671498424479f262e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPShopify\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tareq Mahmood",
+                    "email": "tareqtms@yahoo.com"
+                }
+            ],
+            "description": "PHP SDK for Shopify API",
+            "homepage": "https://github.com/phpclassic/php-shopify",
+            "keywords": [
+                "php",
+                "sdk",
+                "shopify"
+            ],
+            "support": {
+                "issues": "https://github.com/phpclassic/php-shopify/issues",
+                "source": "https://github.com/phpclassic/php-shopify/tree/v1.2.9"
+            },
+            "time": "2023-09-25T13:11:12+00:00"
         },
         {
             "name": "predis/predis",

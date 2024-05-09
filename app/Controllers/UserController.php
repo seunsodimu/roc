@@ -357,4 +357,40 @@ class UserController extends Controller
         $this->data['savedCarts'] = $paymentsModel->getSavedCarts(session()->get('user_id'));
         return view('saved-carts', ['data' => $this->data]);       
     }
+
+    public function updateShippingAddress()
+    {
+        $rules = [
+            'shippingAddress' => 'required',
+            'shippingCity' => 'required',
+            'shippingState' => 'required',
+            'shippingZip' => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            session()->setFlashdata('validation', $this->validator);
+            return redirect()->to('/checkout')->withInput()->with('validation', $this->validator);
+        } else {
+            $model = $this->userModel;
+            $data = [
+                'shipping_address' => $this->request->getVar('shippingAddress'),
+                'shipping_city' => $this->request->getVar('shippingCity'),
+                'shipping_state' => $this->request->getVar('shippingState'),
+                'shipping_zip' => $this->request->getVar('shippingZip'),
+                'shipping_name' => $this->request->getVar('shippingName') ?? '',
+                'shipping_phone' => $this->request->getVar('shippingPhone') ?? '',
+                'shipping_email' => $this->request->getVar('shippingEmail') ?? ''
+            ];
+            $userdata  = [
+                'address' => $this->request->getVar('shippingAddress'),
+                'city' => $this->request->getVar('shippingCity'),
+                'state' => $this->request->getVar('shippingState'),
+                'zip' => $this->request->getVar('shippingZip')
+            ];
+            $model->update(session()->get('user_id'), $userdata);
+            session()->set('shipping_info', $data);
+            session()->setFlashdata('shippingDetUpdtateMsg', 'Shipping address updated successfully');
+            return redirect()->to('/checkout');
+        }
+    }
 }

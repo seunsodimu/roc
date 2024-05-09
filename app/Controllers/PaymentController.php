@@ -6,6 +6,7 @@ use App\Models\PaymentsModel;
 use App\Models\RentalsModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response\JSON;
+use PHPShopify\ShopifySDK;
 
 class PaymentController extends Controller {
 
@@ -26,8 +27,17 @@ class PaymentController extends Controller {
         'page_top_promo' => ['enabled' => false],
         'active' => 'cart'
     ];
+    private $shopify;
     public function __construct() {
         \Stripe\Stripe::setApiKey(getenv('STRIPE_API_KEY'));
+
+        $config = array(
+            "ShopUrl" => getenv('SHOPIFY_SHOP_URL'),
+            "ApiKey" => getenv('SHOPIFY_API_KEY'),
+            "Password" => getenv('SHOPIFY_API_PASSWORD')
+        );
+
+        $this->shopify = ShopifySDK::config($config);
     }
     public function index() 
     {
@@ -66,6 +76,19 @@ class PaymentController extends Controller {
                 'quantity' => 1,
             ];
         }
+
+        //add shipping cost
+        $line_items[] = [
+            'price_data' => [
+                'currency' => 'usd',
+                'product_data' => [
+                    'name' => str_replace("_", " ", session()->get('selected_shipping_option') ). ' Shipping Cost',
+                ],
+                'unit_amount' => session()->get('selected_shipping_cost') * 100, // Stripe expects the amount in cents
+            ],
+            'quantity' => 1,
+        ];
+        
 
         // Create the Stripe checkout session
         $checkout_session = \Stripe\Checkout\Session::create([
@@ -128,7 +151,7 @@ class PaymentController extends Controller {
             $this->data['page_title']['title'] = 'Payment Success';
             $this->data['order_data'] = $cart;
             $this->data['order_id'] = $order_id;
-            //June 17, 2024
+           
             $this->data['order_date'] = date('F j, Y');
             $this->data['order_email'] = session()->get('username');
             $this->data['order_total'] = $session->amount_total / 100;
@@ -160,6 +183,59 @@ class PaymentController extends Controller {
         $payment = new PaymentsModel();
         $txn = $payment->getTransactionById($txn_id, $user_id);
         return json_encode($txn);
+    }
+
+    public function createOrder($orderData)
+    {
+        try {
+            $order = $this->shopify->Order->post($orderData);
+
+            return $order;
+        } catch (\Exception $e) {
+            // Handle exception
+        }
+    }
+
+    public function testShopify()
+    {
+        $orderData = [
+            "line_items" => [
+                [
+                    "variant_id" => 447654529,
+                    "quantity" => 1
+                ]
+            ],
+            "customer" => [
+                "first_name" => "John",
+                "last_name" => "Doe",
+                "email" => "john.doe@example.com"
+            ],
+            "billing_address" => [
+                "first_name" => "John",
+                "last_name" => "Doe",
+                "address1" => "123 Amoebobacterieae St",
+                "phone" => "555-555-5555",
+                "city" => "Ottawa",
+                "province" => "ON",
+                "country" => "CA",
+                "zip" => "K2P0V6"
+            ],
+            "shipping_address" => [
+                "first_name" => "John",
+                "last_name" => "Doe",
+                "address1" => "123 Amoebobacterieae St",
+                "phone" => "555-555-5555",
+                "city" => "Ottawa",
+                "province" => "ON",
+                "country" => "CA",
+                "zip" => "K2P0V6"
+            ],
+            "financial_status" => "paid",
+            "total_tax" => "0.00",
+            "total_price" => "199.99",
+            "email" => "john.doe@example.com",
+            "currency" => "USD"
+        ];
     }
 
 }

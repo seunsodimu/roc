@@ -1,0 +1,154 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.easypost.com/v2/parcels'
+        headers:
+            Host: api.easypost.com
+            Expect: ''
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+        body: '{"parcel":{"length":"10","width":"8","height":"4","weight":"15.4"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef911e655e650ae7885d00001ff4fe
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            location: /api/v2/parcels/prcl_5e22e37d50c94e5287ed6a2f93476f85
+            content-type: 'application/json; charset=utf-8'
+            content-length: '229'
+            x-runtime: '0.035874'
+            x-node: bigweb39nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb1nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"id":"prcl_5e22e37d50c94e5287ed6a2f93476f85","object":"Parcel","created_at":"2023-11-22T20:31:06Z","updated_at":"2023-11-22T20:31:06Z","length":10,"width":8,"height":4,"predefined_package":null,"weight":15.4,"mode":"test"}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/parcels'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 201
+            header_size: 758
+            request_size: 372
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.227965
+            namelookup_time: 0.001187
+            connect_time: 0.062543
+            pretransfer_time: 0.12811
+            size_upload: 67.0
+            size_download: 229.0
+            speed_download: 1004.0
+            speed_upload: 293.0
+            download_content_length: 229.0
+            upload_content_length: 67.0
+            starttransfer_time: 0.227935
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53506
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 128054
+            connect_time_us: 62543
+            namelookup_time_us: 1187
+            pretransfer_time_us: 128110
+            redirect_time_us: 0
+            starttransfer_time_us: 227935
+            total_time_us: 227965
+    index: 0
+-
+    request:
+        method: GET
+        url: 'https://api.easypost.com/v2/parcels/prcl_5e22e37d50c94e5287ed6a2f93476f85'
+        headers:
+            Host: api.easypost.com
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef911b655e650be7885d01001ff54a
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            content-type: 'application/json; charset=utf-8'
+            content-length: '229'
+            x-runtime: '0.025118'
+            x-node: bigweb33nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb2nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"id":"prcl_5e22e37d50c94e5287ed6a2f93476f85","object":"Parcel","created_at":"2023-11-22T20:31:06Z","updated_at":"2023-11-22T20:31:06Z","length":10,"width":8,"height":4,"predefined_package":null,"weight":15.4,"mode":"test"}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/parcels/prcl_5e22e37d50c94e5287ed6a2f93476f85'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 200
+            header_size: 688
+            request_size: 322
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.216453
+            namelookup_time: 0.001852
+            connect_time: 0.063997
+            pretransfer_time: 0.127919
+            size_upload: 0.0
+            size_download: 229.0
+            speed_download: 1057.0
+            speed_upload: 0.0
+            download_content_length: 229.0
+            upload_content_length: 0.0
+            starttransfer_time: 0.216409
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53507
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 127890
+            connect_time_us: 63997
+            namelookup_time_us: 1852
+            pretransfer_time_us: 127919
+            redirect_time_us: 0
+            starttransfer_time_us: 216409
+            total_time_us: 216453
+    index: 0

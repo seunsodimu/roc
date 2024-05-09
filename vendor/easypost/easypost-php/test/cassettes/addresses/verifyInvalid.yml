@@ -1,0 +1,154 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.easypost.com/v2/addresses'
+        headers:
+            Host: api.easypost.com
+            Expect: ''
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+        body: '{"address":{"street1":"invalid"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef911a655e64b0e7885565001f87d2
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            location: /api/v2/addresses/adr_da5dc652897511eeba56ac1f6bc53342
+            content-type: 'application/json; charset=utf-8'
+            content-length: '403'
+            x-runtime: '0.051935'
+            x-node: bigweb34nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb2nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"id":"adr_da5dc652897511eeba56ac1f6bc53342","object":"Address","created_at":"2023-11-22T20:29:36+00:00","updated_at":"2023-11-22T20:29:36+00:00","name":null,"company":null,"street1":"invalid","street2":null,"city":null,"state":null,"zip":null,"country":"US","phone":"<REDACTED>","email":"<REDACTED>","mode":"test","carrier_facility":null,"residential":null,"federal_tax_id":null,"state_tax_id":null,"verifications":[]}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/addresses'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 201
+            header_size: 759
+            request_size: 340
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.256677
+            namelookup_time: 0.002597
+            connect_time: 0.068513
+            pretransfer_time: 0.133443
+            size_upload: 33.0
+            size_download: 403.0
+            speed_download: 1570.0
+            speed_upload: 128.0
+            download_content_length: 403.0
+            upload_content_length: 33.0
+            starttransfer_time: 0.256661
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53376
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 133416
+            connect_time_us: 68513
+            namelookup_time_us: 2597
+            pretransfer_time_us: 133443
+            redirect_time_us: 0
+            starttransfer_time_us: 256661
+            total_time_us: 256677
+    index: 0
+-
+    request:
+        method: GET
+        url: 'https://api.easypost.com/v2/addresses/adr_da5dc652897511eeba56ac1f6bc53342/verify'
+        headers:
+            Host: api.easypost.com
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+    response:
+        status:
+            http_version: '1.1'
+            code: '422'
+            message: 'Unprocessable Entity'
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef9120655e64b0e7885566001f880d
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            content-type: 'application/json; charset=utf-8'
+            content-length: '295'
+            x-runtime: '0.038512'
+            x-node: bigweb38nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb1nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"error":{"code":"ADDRESS.VERIFY.FAILURE","message":"Unable to verify address.","errors":[{"code":"E.ADDRESS.NOT_FOUND","field":"address","message":"Address not found","suggestion":null},{"code":"E.HOUSE_NUMBER.MISSING","field":"street1","message":"House number is missing","suggestion":null}]}}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/addresses/adr_da5dc652897511eeba56ac1f6bc53342/verify'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 422
+            header_size: 706
+            request_size: 330
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.236506
+            namelookup_time: 0.003173
+            connect_time: 0.065946
+            pretransfer_time: 0.133574
+            size_upload: 0.0
+            size_download: 295.0
+            speed_download: 1247.0
+            speed_upload: 0.0
+            download_content_length: 295.0
+            upload_content_length: 0.0
+            starttransfer_time: 0.236454
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53377
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 133466
+            connect_time_us: 65946
+            namelookup_time_us: 3173
+            pretransfer_time_us: 133574
+            redirect_time_us: 0
+            starttransfer_time_us: 236454
+            total_time_us: 236506
+    index: 0

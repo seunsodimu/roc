@@ -2,6 +2,12 @@
 namespace App\Controllers;
 use App\Models\ProductsModel;
 use App\Models\PaymentsModel;
+use App\Models\UserModel;
+use App\Models\ShippingModel;
+use App\Models\ProductModel;
+
+use App\Controllers\ShippingController;
+use App\Libraries\FedExLib\FedExAPI;
 
 use CodeIgniter\Controller;
 
@@ -116,10 +122,131 @@ class CartController extends BaseController
         return json_encode(['msgtype' => 'success', 'msg' => 'Product removed from cart']);
     }
 
-    public function checkout()
+    public function checkout2()
     {
-        $data = [];
-        echo view('checkout', ['data' => $data]);
+        $product = new ProductModel();
+        $user = new UserModel();
+        $shipper = new ShippingModel();
+        $payments = new PaymentsModel();
+        $shipping = new ShippingController();
+            $this->data['page_title']['title'] = 'Checkout';
+            $this->data['page_top_promo']['enabled'] = false;
+            $this->data['active'] = 'checkout';
+            $this->data['user_data'] = $user->getUser(session()->get('user_id')); //var_dump($this->data['user_data']); exit;
+            if (session()->get('cart') == null) {
+                return redirect()->to('/cart');
+            }
+            $fromAddress = [
+                "name" => "ROC Outdoors",
+                "street1" => "1233 Automobile Blv",
+                "city" => "Clearwater",
+                "stateOrProvinceCode" => "FL",
+                "zip" => "33762"
+            ];
+    
+            $toAddress = [
+                "name" => $this->data['user_data']['first_name'].' '.$this->data['user_data']['last_name'],
+                "street1" => $this->data['user_data']['address'],
+                "city" => $this->data['user_data']['city'],
+                "state" => $this->data['user_data']['state'],
+                "zip" => $this->data['user_data']['zip'],
+                "phone" => $this->data['user_data']['phone'],
+                "email" => $this->data['user_data']['email']
+            ];
+    
+            $cart = session()->get('cart');
+            if(session()->get('cart_count') > 1) {
+                //multiple parcels for multiple items in cart
+            $parcels = [];
+            foreach ($cart as $item) {
+                $ship_item = $product->where('id', $item['product_id'])->first();
+                $parcel = [
+                    "parcel" => [
+                    "length" => $ship_item['length'],
+                    "width" => $ship_item['breadth'],
+                    "height" => $ship_item['height'],
+                    "weight" => $ship_item['weight']
+                ]];
+                array_push($parcels, $parcel);
+            }
+            $params = [
+                'fromAddress' => $fromAddress,
+                'toAddress' => $toAddress,
+                'parcels' => $parcels
+            ];
+            $getshipment = $shipping->getRatesWithCaching($params, 'multi'); 
+            $shipment = json_decode($getshipment);
+            $shipment = $shipment->rates;
+            //$shipment = $shipping->getOrderRates($fromAddress, $toAddress, $parcels);
+            } else {
+                //single parcel for single item in cart
+                $ship_item = $product->where('id', $cart[0]['product_id'])->first();
+                $parcel = [
+                    "length" => $ship_item['length'],
+                    "width" => $ship_item['breadth'],
+                    "height" => $ship_item['height'],
+                    "weight" => $ship_item['weight']
+                ];
+                $params = [
+                    'fromAddress' => $fromAddress,
+                    'toAddress' => $toAddress,
+                    'parcels' => $parcel
+                ];
+                $shipment = $shipping->getRatesWithCaching($params, 'single');
+                // $shipment = $shipping->getStatelessRates($fromAddress, $toAddress, $parcel);
+            }
+            $shipping_options = $shipper->where('status', 1)->findAll();
+    
+            $rates = [];
+            foreach ($shipment as $rate) {
+                //if service is name in $shipping add to array
+                foreach ($shipping_options as $ship) {
+                    if ($rate->service == $ship['name']) {
+                        $rates[] = [
+                            'service' => $rate->service,
+                            'rate' => $rate->rate,
+                            'delivery_days' => $rate->delivery_days,
+                            'carrier' => $rate->carrier,
+                            'service_identifier' => $ship['shipper'].'_'.$ship['name']
+                        ];
+                    }
+                }
+            }
+            $this->data['shipping_rates'] = $rates;
+            $this->data['selected_shipping'] = session()->get('selected_shipping') ?? 'Pickup';
+            $this->data['selected_shipping_cost'] = session()->get('selected_shipping_cost') ?? 0;
+            $this->data['cart_total'] = session()->get('cart_total');
+            if($payments->isTaxEnabled()){
+            $tax = $payments->getTaxRate($this->data['user_data']['zip'], $this->data['user_data']['state']); 
+            $this->data['tax_rate'] = $tax['estimated_combined_rate'];
+            $taxRate = session()->get('taxes') ?? ($this->data['cart_total'] + $this->data['selected_shipping_cost']) * $this->data['tax_rate'];
+            $this->data['taxes'] = round($taxRate, 2);
+            $grand_total = session()->get('grand_total') ?? session()->get('cart_total') + $this->data['selected_shipping_cost'] + $this->data['taxes'];
+            $this->data['grand_total'] = round($grand_total, 2);
+            }else{
+                $this->data['tax_rate'] = 0;
+                $this->data['taxes'] = 0;
+                $this->data['grand_total'] = session()->get('grand_total') ?? round(session()->get('cart_total') + $this->data['selected_shipping_cost'], 2);
+            }
+            session()->set('grand_total', $this->data['grand_total']);
+            session()->set('taxes', $this->data['taxes']);
+            // var_dump($this->data['meta_tags']); die();
+            return view('checkout', ['data' => $this->data]);
+    }
+
+    public function updateShippingOption()
+    {
+        $shipping = $this->request->getVar('shipping_option');
+        $shipping_cost = $this->request->getVar('shipping_cost');
+        $shipping_cost = str_replace('$', '', $shipping_cost);
+        $tax_rate = $this->request->getVar('tax_rate');
+        $taxes = (session()->get('cart_total') + $shipping_cost) * $tax_rate;
+        session()->set('selected_shipping', $shipping);
+        session()->set('selected_shipping_cost', $shipping_cost);
+        session()->set('taxes', $taxes);
+        $grand_total = session()->get('cart_total') + $shipping_cost + $taxes;
+        session()->set('grand_total', $grand_total);
+        return json_encode(['status' => 'success', 'msg' => 'Shipping option updated successfully']);
     }
 
     public function processPayment()
@@ -198,6 +325,131 @@ class CartController extends BaseController
         session()->set('cart_count', $savedCart['cart_count']);
         session()->set('cart_total', $savedCart['cart_total']);
         return json_encode(['status' => true, 'msg' => 'Cart loaded successfully']);
+    }
+
+    public function checkout()
+    {
+        $product = new ProductModel();
+        $user = new UserModel();
+        $shipper = new ShippingModel();
+        $payments = new PaymentsModel();
+        $shipping = new ShippingController();
+            $this->data['page_title']['title'] = 'Checkout';
+            $this->data['page_top_promo']['enabled'] = false;
+            $this->data['active'] = 'checkout';
+            $this->data['user_data'] = $user->getUser(session()->get('user_id')); //var_dump($this->data['user_data']); exit;
+            if (session()->get('cart') == null) {
+                return redirect()->to('/cart');
+            }
+            $sender = [
+                "stateOrProvinceCode" => "FL",
+                "postalCode" => "33762",
+                "countryCode" => "US"
+            ];
+
+            $recipient = [
+                "stateOrProvinceCode" => $this->data['user_data']['state'],
+                "postalCode" => $this->data['user_data']['zip'],
+                "countryCode" => "US"
+            ];
+    
+            $toAddress = [
+                "name" => $this->data['user_data']['first_name'].' '.$this->data['user_data']['last_name'],
+                "street1" => $this->data['user_data']['address'],
+                "city" => $this->data['user_data']['city'],
+                "state" => $this->data['user_data']['state'],
+                "zip" => $this->data['user_data']['zip'],
+                "phone" => $this->data['user_data']['phone'],
+                "email" => $this->data['user_data']['email']
+            ];
+    
+            $cart = session()->get('cart');
+            $packagesx = [];
+            foreach ($cart as $item) {
+                $ship_item = $product->where('id', $item['product_id'])->first();
+            $package = [
+                "weight" =>[
+                    "value" => intval($ship_item['weight']),
+                    "units" => "LB"
+                ],
+                "dimensions" => [
+                    "length" => intval($ship_item['length']),
+                    "width" => intval($ship_item['breadth']),
+                    "height" => intval($ship_item['height']),
+                    "units" => "IN"
+                ]
+                ];
+                array_push($packagesx, $package);
+            }
+            $sender = [
+                "stateOrProvinceCode" => "FL",
+                "postalCode" => "33762",
+                "countryCode" => "US"
+            ];
+            // $recipient = [
+            //     "postalCode"    => "76052",
+            //     "stateOrProvinceCode" => "TX",
+            //     "countryCode"   => "US"
+            // ];
+            //multiple parcels for multiple items in cart
+            // $parcels = [];
+            $packages = [
+                "weight" =>[
+                    "value" => 1,
+                    "units" => "LB"
+                ],
+                "dimensions" => [
+                    "length" => 12,
+                    "width" => 12,
+                    "height" => 12,
+                    "units" => "IN"
+                ],
+            ];
+
+            // var_dump($packagesx); echo '<br>';
+            // var_dump($packages);
+            // die();
+            $shipping = new FedExAPI();
+            $shipment = $shipping->getQuickRates($sender, $recipient, $packagesx);
+            $shipping_options = $shipper->where('status', 1)->findAll();
+    // var_dump($shipment); die();
+            $rates = [];
+            foreach ($shipment as $rate) {
+                //if service is name in $shipping add to array
+                foreach ($shipping_options as $ship) {
+                    if ($rate['serviceType'] == $ship['name']) {
+                        //delivery days is no of days between date('Y-m-d') and $rate['deliveryDate']
+                        $delivery_days = date_diff(date_create(date('Y-m-d')), date_create($rate['deliveryDate']))->format('%a');
+                        $rates[] = [
+                            'service' => $rate['service'],
+                            'rate' => $rate['amount'],
+                            'delivery_days' => $delivery_days,
+                            'carrier' => $ship['shipper'],
+                            'service_identifier' => $ship['shipper'].'_'.$ship['name']
+                        ];
+                    }
+                }
+            }
+            $this->data['shipping_rates'] = $rates;
+            $this->data['selected_shipping'] = session()->get('selected_shipping') ?? 'Pickup';
+            $this->data['selected_shipping_cost'] = session()->get('selected_shipping_cost') ?? 0;
+            $this->data['cart_total'] = session()->get('cart_total');
+            if($payments->isTaxEnabled()){
+            $tax = $payments->getTaxRate($this->data['user_data']['zip'], $this->data['user_data']['state']); 
+            $this->data['tax_rate'] = $tax['estimated_combined_rate'];
+            $taxRate = session()->get('taxes') ?? ($this->data['cart_total'] + $this->data['selected_shipping_cost']) * $this->data['tax_rate'];
+            $this->data['taxes'] = round($taxRate, 2);
+            $grand_total = session()->get('grand_total') ?? session()->get('cart_total') + $this->data['selected_shipping_cost'] + $this->data['taxes'];
+            $this->data['grand_total'] = round($grand_total, 2);
+            }else{
+                $this->data['tax_rate'] = 0;
+                $this->data['taxes'] = 0;
+                $this->data['grand_total'] = session()->get('grand_total') ?? round(session()->get('cart_total') + $this->data['selected_shipping_cost'], 2);
+            }
+            session()->set('grand_total', $this->data['grand_total']);
+            session()->set('taxes', $this->data['taxes']);
+            // var_dump($this->data['meta_tags']); die();
+            return view('checkout', ['data' => $this->data]);
     }
 
     public function clearCartSession()

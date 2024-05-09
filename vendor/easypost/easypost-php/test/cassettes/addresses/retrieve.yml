@@ -1,0 +1,154 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.easypost.com/v2/addresses'
+        headers:
+            Host: api.easypost.com
+            Expect: ''
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+        body: '{"address":{"name":"Jack Sparrow","street1":"388 Townsend St","street2":"Apt 20","city":"San Francisco","state":"CA","zip":"94107","country":"US","email":"test@example.com","phone":"5555555555"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef911c655e64b0e7885567001f884b
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            location: /api/v2/addresses/adr_daab1aa3897511ee8b46ac1f6bc539ae
+            content-type: 'application/json; charset=utf-8'
+            content-length: '461'
+            x-runtime: '0.039949'
+            x-node: bigweb39nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb1nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"id":"adr_daab1aa3897511ee8b46ac1f6bc539ae","object":"Address","created_at":"2023-11-22T20:29:36+00:00","updated_at":"2023-11-22T20:29:36+00:00","name":"Jack Sparrow","company":null,"street1":"388 Townsend St","street2":"Apt 20","city":"San Francisco","state":"CA","zip":"94107","country":"US","phone":"<REDACTED>","email":"<REDACTED>","mode":"test","carrier_facility":null,"residential":null,"federal_tax_id":null,"state_tax_id":null,"verifications":[]}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/addresses'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 201
+            header_size: 759
+            request_size: 503
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.242338
+            namelookup_time: 0.001202
+            connect_time: 0.065353
+            pretransfer_time: 0.137064
+            size_upload: 195.0
+            size_download: 461.0
+            speed_download: 1902.0
+            speed_upload: 804.0
+            download_content_length: 461.0
+            upload_content_length: 195.0
+            starttransfer_time: 0.242305
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53378
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 136984
+            connect_time_us: 65353
+            namelookup_time_us: 1202
+            pretransfer_time_us: 137064
+            redirect_time_us: 0
+            starttransfer_time_us: 242305
+            total_time_us: 242338
+    index: 0
+-
+    request:
+        method: GET
+        url: 'https://api.easypost.com/v2/addresses/adr_daab1aa3897511ee8b46ac1f6bc539ae'
+        headers:
+            Host: api.easypost.com
+            Accept-Encoding: ''
+            Accept: application/json
+            Authorization: ''
+            Content-Type: application/json
+            User-Agent: ''
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            x-frame-options: SAMEORIGIN
+            x-xss-protection: '1; mode=block'
+            x-content-type-options: nosniff
+            x-download-options: noopen
+            x-permitted-cross-domain-policies: none
+            referrer-policy: strict-origin-when-cross-origin
+            x-ep-request-uuid: 71ef911a655e64b0e7885568001f887d
+            cache-control: 'private, no-cache, no-store'
+            pragma: no-cache
+            expires: '0'
+            content-type: 'application/json; charset=utf-8'
+            content-length: '461'
+            x-runtime: '0.027902'
+            x-node: bigweb40nuq
+            x-version-label: easypost-202311212221-a0f06fbc2c-master
+            x-backend: easypost
+            x-proxied: ['intlb1nuq b3de2c47ef', 'extlb2nuq 003ad9bca0']
+            strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
+        body: '{"id":"adr_daab1aa3897511ee8b46ac1f6bc539ae","object":"Address","created_at":"2023-11-22T20:29:36+00:00","updated_at":"2023-11-22T20:29:36+00:00","name":"Jack Sparrow","company":null,"street1":"388 Townsend St","street2":"Apt 20","city":"San Francisco","state":"CA","zip":"94107","country":"US","phone":"<REDACTED>","email":"<REDACTED>","mode":"test","carrier_facility":null,"residential":null,"federal_tax_id":null,"state_tax_id":null,"verifications":[]}'
+        curl_info:
+            url: 'https://api.easypost.com/v2/addresses/adr_daab1aa3897511ee8b46ac1f6bc539ae'
+            content_type: 'application/json; charset=utf-8'
+            http_code: 200
+            header_size: 688
+            request_size: 323
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.222209
+            namelookup_time: 0.001058
+            connect_time: 0.0644
+            pretransfer_time: 0.129999
+            size_upload: 0.0
+            size_download: 461.0
+            speed_download: 2074.0
+            speed_upload: 0.0
+            download_content_length: 461.0
+            upload_content_length: 0.0
+            starttransfer_time: 0.222172
+            redirect_time: 0.0
+            redirect_url: ''
+            primary_ip: 169.62.110.130
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 10.130.6.39
+            local_port: 53379
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 129899
+            connect_time_us: 64400
+            namelookup_time_us: 1058
+            pretransfer_time_us: 129999
+            redirect_time_us: 0
+            starttransfer_time_us: 222172
+            total_time_us: 222209
+    index: 0

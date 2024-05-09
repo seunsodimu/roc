@@ -52,6 +52,10 @@ $routes->get('/payment/cancel', 'PaymentController::payment_cancel', ['filter' =
 
 //cart and checkout
 $routes->get('/cart', 'CartController::index');
+$routes->get('/checkout', 'CartController::checkout', ['filter' => 'auth']);
+$routes->post('/updateShipping', 'CartController::updateShipping', ['filter' => 'auth']);
+$routes->post('/updateShippingOption', 'CartController::updateShippingOption', ['filter' => 'auth']);
+$routes->post('/update-shipping-details', 'UserController::updateShippingAddress', ['filter' => 'auth']);
 $routes->post('/cart/add', 'CartController::add');
 $routes->post('/cart/update', 'CartController::update');
 $routes->post('/cart/remove', 'CartController::remove');
@@ -59,6 +63,9 @@ $routes->post('/save-cart', 'CartController::saveCart', ['filter' => 'auth']);
 $routes->get('/get-saved-cart', 'CartController::getSavedCart', ['filter' => 'auth']);
 $routes->get('/load-saved-cart', 'CartController::loadSavedCart', ['filter' => 'auth']);
 $routes->post('/delete-saved-cart', 'CartController::deleteSavedCart', ['filter' => 'auth']);
+$routes->get('/get-rates', 'ShippingController::myRates');
+$routes->post('/getShippingCost', 'ShippingController::myRates');
+$routes->get('/testOrderRate', 'ShippingController::testOrderRate');
 
 //form actions
 $routes->post('get-variant-colors', 'ProductController::colorVariants');
